@@ -1,0 +1,99 @@
+#!/user/bin/env python
+#_*_ coding:utf-8 _*_
+import requests
+import json
+url1 = 'https://t.yh.120yibao.com/yb/im/getYTXAccountLoginStatus.do'
+data1= {
+        "t":"1528443229734",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6"
+        }
+res = requests.get(url = url1,params= data1)
+print res.text
+url2 = 'https://t.yh.120yibao.com/yb/serviceGroup/getConcernDoctorList.do'
+data2 ={
+        "t":"1528443642753",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "start":"0",
+        "size":"10"
+        }
+res1 = requests.get(url=url2,params=data2)
+print res1.text
+url3 = 'https://t.yh.120yibao.com/yb/shopCenter/getOnLineCommodityDetail'
+data3 = {
+        "t":"1528451551373",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "doctorUserId":"141273",
+        "serviceType":" 2"
+        }
+r3 = requests.get(url=url3,params=data3)
+print r3.text
+url4 = 'https://t.yh.120yibao.com/yb/cache/get.do'
+data4 = {
+        "t":"1528444241012",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "key":"mall_service_apply_form"
+        }
+r4 = requests.get(url=url4,params=data4)
+url5 = 'https://t.yh.120yibao.com/yb/shopCenter/process/initForm.do'
+data5 ={
+        "t":"1528444241148",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "processDefinitionId":""
+        }
+data5['processDefinitionId']=r4['data']['processDefinitionId']
+r5 = requests.get(url=url5,params=data5)
+print r5.text
+url6 = 'https://t.yh.120yibao.com/yb/patient/getPatientlist.do'
+data6 = {
+        "t":"1528444241196",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "pageSize":"1000",
+        "pageNum":"0"
+        }
+r6 = requests.get(url=url6,params=data6)
+print r6.text
+url7 = 'https://t.yh.120yibao.com/yb/process/pre'
+data7 = {
+        "t":"1528446622505",
+        "Yb-Yh-Client":"0",
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "commodityId":"11282",
+        "doctorUserId":"141273",
+        "patientId":"1805"
+        }
+r7 = requests.get(url=url7,params=data7)
+print r7.text
+url8 = 'https://t.yh.120yibao.com/yb/shopCenter/process/startProcess.do'
+header8 = {
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6",
+        "Content-Type":"application/json"
+        }
+data8 = {"catType":10,"priceId":4090,"patientId":1805,"commodityId":11282,"processDefinitionId":11610,
+         "formInstance":{"templateId":659,"templateName":"基础服务在线咨询预约信息单",
+                         "fieldInstanceList":[{"componentId":17,"fieldId":7540,"fieldTypeId":3,
+                                               "fieldValueName":"甘特图过二十广东省高第三方 反而","fieldValueId":""},
+                                              {"fieldId":7541,"fieldTypeId":9,"fieldValueName":"","fieldValueId":""}]}}
+r8 = requests.post(url=url8,data=json.dumps(data8),headers = header8)
+print r8.text
+url9 = 'https://t.yh.120yibao.com/yb/shopCenter/saveOrder.do'
+header9 = {
+        "Yb-Yh-Token":"379772e16a86c93ce238f642b2e72bf6"
+        }
+data9 = {
+        "isFree":"0",
+        "catType":"10",
+        "priceId":"4090",
+        "referer":"1",
+        "patientId":"1805",
+        "commodityId":"11282",
+        "processInstanceId":"12556",
+        "isAnonymousDisplay":"1"
+        }
+r9 = requests.post(url=url9,data=data9,headers = header9)
+print r9.text
